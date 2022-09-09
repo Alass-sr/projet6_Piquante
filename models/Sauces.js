@@ -6,7 +6,7 @@ const sauceSchema = mongoose.Schema({
   manufacturer: { type: String, required: true },
   description: { type: String, required: true },
   mainPepper: { type: String, required: true },
-  imageUrl: { type: String, required: true },
+  imageUrl: { type: String, required: false },
   heat: { type: String, required: true },
   likes: { type: Number },
   dislikes: { type: Number },
@@ -14,4 +14,4 @@ const sauceSchema = mongoose.Schema({
   usersDisliked: { type: [String] },
 });
 
-module.exports = mongoose.model("Sauce", sauceSchema);
+module.exports = mongoose.model("Sauces", sauceSchema);

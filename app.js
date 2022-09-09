@@ -2,19 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const sauceRouter = require('./models/Sauces');
+const sauceRouter = require("./router/sauces");
 
 const userRouter = require("./router/user");
-
-
+const path = require('path');
 
 mongoose
-.connect(
-  "mongodb+srv://Alass:mongoland@cluster0.4fdo616.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
+  .connect(
+    "mongodb+srv://Alass:mongoland@cluster0.4fdo616.mongodb.net/?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => {
     console.log("Connexion réussie !");
@@ -22,9 +21,9 @@ mongoose
   .catch(() => {
     console.log("Connexion échouée !");
   });
-  
-  const app = express();
-  
+
+const app = express();
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -41,12 +40,11 @@ app.use((req, res, next) => {
 // app.use((req, res) => {
 //   res.json({ message: "Votre requête a bien été reçue !" });
 // });
-app.use(express.json())
-app.use(bodyParser.json());
-
-app.use("/api/sauces", sauceRouter);
-app.use("/api/auth", userRouter);
+app.use(express.json());
 
 
+app.use('/api/sauces', sauceRouter);
+app.use('/api/auth', userRouter);
+app.use('/images', express.static(path.join(__dirname, "images")));
 
 module.exports = app;
